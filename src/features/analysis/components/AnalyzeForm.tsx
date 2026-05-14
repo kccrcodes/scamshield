@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import type { AnalysisInputType, AnalysisRequest } from "@/agents/core/types";
+import { QrUploader } from "@/features/analysis/components/QrUploader";
 import type { ExampleInput } from "@/features/analysis/services/example-inputs";
 
 const inputTypeLabels: Record<AnalysisInputType, string> = {
@@ -10,6 +13,7 @@ const inputTypeLabels: Record<AnalysisInputType, string> = {
   listing_text: "Listing text",
   voice_transcript: "Voice / SMS",
   shop_profile: "Shop profile",
+  qr_image: "QR Code",
 };
 
 interface AnalyzeFormProps {
@@ -38,6 +42,8 @@ export function AnalyzeForm({
   onLoadExample,
 }: AnalyzeFormProps) {
   const isUrl = inputType === "url";
+  const isQrImage = inputType === "qr_image";
+  const [qrError, setQrError] = useState("");
 
   return (
     <section className="panel panel-strong">
@@ -55,7 +61,14 @@ export function AnalyzeForm({
             key={value}
             type="button"
             className={`chip ${value === inputType ? "chip-active" : ""}`}
-            onClick={() => onInputTypeChange(value)}
+            onClick={() => {
+              setQrError("");
+              onInputTypeChange(value);
+
+              if (value === "qr_image") {
+                onRawInputChange("");
+              }
+            }}
           >
             {inputTypeLabels[value]}
           </button>
@@ -82,15 +95,32 @@ export function AnalyzeForm({
         }}
       >
         <label className="field-label" htmlFor="rawInput">
-          {isUrl ? "Paste the suspicious URL" : `Paste the ${inputTypeLabels[inputType].toLowerCase()}`}
+          {getFieldLabel(inputType, isUrl)}
         </label>
-        <textarea
-          id="rawInput"
-          value={rawInput}
-          onChange={(event) => onRawInputChange(event.target.value)}
-          placeholder={getPlaceholder(inputType)}
-          rows={getRows(inputType)}
-        />
+
+        {isQrImage ? (
+          <>
+            <QrUploader
+              onDecoded={(url) => {
+                setQrError("");
+                onRawInputChange(url);
+              }}
+              onError={(message) => {
+                setQrError(message);
+                onRawInputChange("");
+              }}
+            />
+            {qrError ? <p className="inline-error">{qrError}</p> : null}
+          </>
+        ) : (
+          <textarea
+            id="rawInput"
+            value={rawInput}
+            onChange={(event) => onRawInputChange(event.target.value)}
+            placeholder={getPlaceholder(inputType)}
+            rows={getRows(inputType)}
+          />
+        )}
 
         <button className="primary-button" type="submit" disabled={isLoading || rawInput.trim().length < 8}>
           {isLoading ? "Analyzing..." : "Analyze risk"}
@@ -122,9 +152,23 @@ function getPlaceholder(inputType: AnalysisInputType) {
       return "Paste a suspicious SMS, WhatsApp message, or call transcript here.";
     case "shop_profile":
       return "Paste a Shopee/TikTok Shop/Lazada seller profile URL or copy-paste the seller page text.";
+    case "qr_image":
+      return "";
     default:
       return "Paste seller text, listing details, or payment-page instructions here.";
   }
+}
+
+function getFieldLabel(inputType: AnalysisInputType, isUrl: boolean) {
+  if (isUrl) {
+    return "Paste the suspicious URL";
+  }
+
+  if (inputType === "qr_image") {
+    return "Upload the QR code";
+  }
+
+  return `Paste the ${inputTypeLabels[inputType].toLowerCase()}`;
 }
 
 function getRows(inputType: AnalysisInputType) {

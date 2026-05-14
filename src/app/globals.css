@@ -320,6 +320,56 @@ textarea {
   line-height: 1.45;
 }
 
+.qr-uploader {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.qr-dropzone {
+  display: grid;
+  gap: 0.35rem;
+  border: 1px dashed rgba(17, 60, 47, 0.42);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+  padding: 1.2rem;
+  cursor: pointer;
+}
+
+.qr-dropzone span,
+.decoded-url {
+  font-family: "Arial Black", "Arial Narrow", sans-serif;
+}
+
+.qr-dropzone small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.file-input {
+  width: 100%;
+}
+
+.decoded-url {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+}
+
+.decoded-url input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.75);
+  padding: 1rem;
+  color: var(--text);
+}
+
+.inline-error {
+  margin: 0;
+  color: var(--danger);
+  font-weight: 700;
+}
+
 .score-shell {
   display: flex;
   justify-content: space-between;
