@@ -7,6 +7,7 @@ export const analysisInputTypeSchema = z.enum([
   "listing_text",
   "voice_transcript",
   "shop_profile",
+  "qr_image",
 ]);
 
 export const analysisRequestSchema = z.object({

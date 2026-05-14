@@ -110,7 +110,7 @@ export const linkGuardianAnalyzer: Analyzer = {
   id: "link-guardian",
   name: "LinkGuardian",
   description: "Analyzes suspicious links, payment requests, listings, and seller text.",
-  supportedInputs: ["url", "payment_text", "seller_text", "listing_text"],
+  supportedInputs: ["url", "payment_text", "seller_text", "listing_text", "qr_image"],
   enabled: true,
   monetizationAngle: "Consumer pay-per-check now, trust API for wallets and marketplaces next.",
   analyze,

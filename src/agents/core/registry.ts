@@ -23,6 +23,7 @@ export function getAnalyzerForInput(inputType: AnalysisInputType): Analyzer {
     case "payment_text":
     case "seller_text":
     case "listing_text":
+    case "qr_image":
       return linkGuardianAnalyzer;
     default: {
       const unreachable: never = inputType;

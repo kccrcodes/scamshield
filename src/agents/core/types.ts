@@ -4,7 +4,8 @@ export type AnalysisInputType =
   | "seller_text"
   | "listing_text"
   | "voice_transcript"
-  | "shop_profile";
+  | "shop_profile"
+  | "qr_image";
 
 export type RiskLevel = "low" | "medium" | "high";
 
