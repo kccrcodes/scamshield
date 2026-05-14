@@ -398,6 +398,43 @@ textarea {
   margin-top: 0.8rem;
 }
 
+.docs-section {
+  margin-top: 1rem;
+}
+
+.code-block {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: rgba(23, 32, 29, 0.06);
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  padding: 0.8rem;
+}
+
+td {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 @media (max-width: 900px) {
   .site-header,
   .signal-header,

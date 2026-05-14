@@ -1,4 +1,5 @@
 import { AgentCardList } from "@/features/analysis/components/AgentCardList";
+import Link from "next/link";
 
 export default function AgentsPage() {
   return (
@@ -10,6 +11,9 @@ export default function AgentsPage() {
           LinkGuardian, VoiceShield, and ShopScan are wired into the analysis flow.
           FraudRadar and ReportSynth remain scaffolded as the next platform modules.
         </p>
+        <div className="hero-links">
+          <Link href="/api-docs">View API docs -&gt;</Link>
+        </div>
       </section>
       <AgentCardList />
     </main>
