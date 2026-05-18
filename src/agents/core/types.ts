@@ -2,7 +2,11 @@ export type AnalysisInputType =
   | "url"
   | "payment_text"
   | "seller_text"
-  | "listing_text";
+  | "listing_text"
+  | "voice_transcript"
+  | "shop_profile"
+  | "qr_image"
+  | "image_upload";
 
 export type RiskLevel = "low" | "medium" | "high";
 
